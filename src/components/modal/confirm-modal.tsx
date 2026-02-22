@@ -17,12 +17,14 @@ type ConfirmModalProps = {
   description: string;
   confirmText: string;
   cancelText: string;
+  onCancel?: () => void;
 };
 
 function ConfirmModal({
   open,
   onOpenChange,
   onConfirm,
+  onCancel,
   title,
   description,
   confirmText,
@@ -30,26 +32,26 @@ function ConfirmModal({
 }: ConfirmModalProps) {
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
-      <AlertDialogContent className="rounded-2xl">
+      <AlertDialogContent className="rounded-3xl p-6">
         <AlertDialogHeader>
-          <AlertDialogTitle className="w-full text-start text-xl">
+          <AlertDialogTitle className="mb-1 w-full text-start text-xl">
             {title}
           </AlertDialogTitle>
-          <AlertDialogDescription className="text-sub-font-black w-full text-start">
+          <AlertDialogDescription className="text-sub-font-black mb-1 w-full text-start">
             {description}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter className="w-full flex-row">
           <AlertDialogCancel
-            onClick={onOpenChange}
+            onClick={onCancel ?? onOpenChange}
             variant="cancel"
-            className="h-14 flex-1 rounded-xl"
+            className="h-13 flex-1 rounded-xl"
           >
             {cancelText}
           </AlertDialogCancel>
           <AlertDialogAction
             onClick={onConfirm}
-            className="h-14 flex-1 rounded-xl"
+            className="h-13 flex-1 rounded-xl"
           >
             {confirmText}
           </AlertDialogAction>
