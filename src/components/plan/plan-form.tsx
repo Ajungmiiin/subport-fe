@@ -175,7 +175,7 @@ function PlanForm({
                         form.setValue('amountUnit', nextValue.amountUnit);
                         form.setValue('amount', '0', { shouldValidate: true });
                       }}
-                      className="[&>div:last-child]:bg-background-black transition-all [&>div:last-child]:rounded-lg [&>div:last-child>div]:hidden"
+                      className="transition-all [&>div:last-child]:rounded-sm [&>div:last-child]:bg-[#B1DFDA] [&>div:last-child>div]:hidden"
                     >
                       <Picker.Column name="amountUnit" className="z-10">
                         {AMOUNT_UNITS.map((unit) => (
@@ -184,7 +184,7 @@ function PlanForm({
                               <div
                                 className={cn(
                                   selected
-                                    ? 'text-white'
+                                    ? 'text-background-black'
                                     : 'text-sub-font-black',
                                   'w-full px-4 text-right text-lg',
                                 )}

@@ -110,7 +110,7 @@ function DatePicker({
 
               onChange(nextValue);
             }}
-            className="transition-all [&>div:last-child]:rounded-lg [&>div:last-child]:bg-[#B1DFDA] [&>div:last-child>div]:hidden"
+            className="transition-all [&>div:last-child]:rounded-sm [&>div:last-child]:bg-[#B1DFDA] [&>div:last-child>div]:hidden"
           >
             <Picker.Column name="year" className="z-10">
               {years.map((y) => (

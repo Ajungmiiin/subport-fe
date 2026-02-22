@@ -41,7 +41,6 @@ function MemberSubscribeEditPage() {
           <span className="text-sub-font-black text-sm">이름</span>
           <p>{subscribe.name}</p>
         </div>
-        ``
         <div className="flex items-center justify-between">
           <span className="text-sub-font-black text-sm">멤버십 종류</span>
           <Link to="plan" className="flex items-center gap-1">

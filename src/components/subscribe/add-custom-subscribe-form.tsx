@@ -129,7 +129,7 @@ function AddCustomSubscribeForm({
                       setSelectType(nextValue);
                       field.onChange(nextValue.subscribeType);
                     }}
-                    className="[&>div:last-child]:bg-background-black transition-all [&>div:last-child]:rounded-lg [&>div:last-child>div]:hidden"
+                    className="transition-all [&>div:last-child]:rounded-sm [&>div:last-child]:bg-[#B1DFDA] [&>div:last-child>div]:hidden"
                   >
                     <Picker.Column name="subscribeType" className="z-10">
                       {types?.map((type) => (
@@ -137,7 +137,10 @@ function AddCustomSubscribeForm({
                           {({ selected }) => (
                             <div
                               className={cn(
-                                selected ? 'text-white' : 'text-sub-font-black',
+                                selected
+                                  ? 'text-background-black'
+                                  : 'text-sub-font-black',
+                                'w-full pl-4 text-start',
                               )}
                             >
                               {type}
