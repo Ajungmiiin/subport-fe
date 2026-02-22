@@ -7,7 +7,7 @@ import { useSubScribe } from '@/store/use-subscribe-store';
 import SubscribeListFallback from '@/components/ui/fallback/subscribe-list-fallback';
 import { useAddSubscribeMutate } from '@/hooks/mutations/use-add-subscribe-mutate';
 import SearchIcon from '@/assets/icons/search-icon.svg?react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import useDebounce from '@/hooks/use-debunce';
 import SubscribeFallbackImage from '@/assets/subscribe-fallback-image.svg';
 
@@ -28,12 +28,6 @@ function AddSubscribePage() {
       },
     });
 
-  useEffect(() => {
-    return () => {
-      resetSubscribe();
-    };
-  }, []);
-
   const selectedIds = new Set(addSubscriptions.map((s) => s.subscriptionId));
 
   const getSelectSubscribe = (id: number) => {
@@ -41,6 +35,7 @@ function AddSubscribePage() {
       (subscribe) => subscribe.subscriptionId === id,
     );
 
+    console.log(selectSubscribe);
     return selectSubscribe[0];
   };
 
@@ -62,7 +57,6 @@ function AddSubscribePage() {
           dutchPayAmount: subscribe.dutchPayAmount,
           memo: subscribe.memo,
           planId: subscribe.planId,
-          reminderDaysBeforeEnd: subscribe.reminderDaysBeforeEnd,
           startDate: subscribe.startDate,
           subscriptionId: subscribe.subscriptionId,
         }),
