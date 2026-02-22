@@ -11,7 +11,7 @@ function AddPlanPage() {
   const navigate = useNavigate();
   const { mutate: addPlan, isPending: isAddPlanPending } = useAddPlanMutate({
     onSuccess: () => {
-      navigate(`/subscribe/add/${subscribeId}`, { replace: true });
+      navigate(-1);
     },
   });
 
