@@ -25,7 +25,7 @@ export type MemberSubscriptionSort =
   | 'createdAt'
   | 'name';
 
-export type MemberSubscribeItem = {
+export type MemberSubscriptionsItem = {
   id: number;
   name: string;
   logoImageUrl: string;
@@ -34,9 +34,9 @@ export type MemberSubscribeItem = {
   daysUntilPayment: number;
 };
 
-export type SubscriptionGroupMap = Record<string, MemberSubscribeItem[]>;
+export type SubscriptionGroupMap = Record<string, MemberSubscriptionsItem[]>;
 
-export type MemberSubscriptions = MemberSubscribeItem[];
+export type MemberSubscriptions = MemberSubscriptionsItem[];
 
 export type GroupedSubscriptionRes = {
   currentMonthTotalAmount: number;
