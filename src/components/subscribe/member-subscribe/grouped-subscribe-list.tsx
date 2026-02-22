@@ -12,7 +12,7 @@ function GroupedSubscribeList({
   return (
     <ul className="space-y-4">
       {Object.entries(subscribeList).map(([subscribeType, item]) => (
-        <li className="space-y-4">
+        <li key={subscribeType} className="space-y-4">
           <div className="mb-4 flex items-center justify-between">
             <div className="text-lg font-semibold">{subscribeType}</div>
             <div>{`${item.length}개`}</div>
