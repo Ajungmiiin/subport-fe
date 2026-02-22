@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { ChevronUp } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Picker from 'react-mobile-picker';
-import { addMonths, format } from 'date-fns';
+import { format } from 'date-fns';
 import {
   getDaysByMonthRange,
   getMonthRange,
@@ -22,12 +22,6 @@ const year = format(today, 'yyyy');
 const m = format(today, 'MM');
 const d = format(today, 'dd');
 
-const minDate = addMonths(today, -6);
-const maxDate = addMonths(today, +6);
-
-const monthRange = getMonthRange(minDate, maxDate);
-const years = getYearsByMonthRange(monthRange);
-
 function pickCloset(values: string[], target: string) {
   if (values.length === 0) return target;
   const targetNum = Number(target);
@@ -38,7 +32,17 @@ function pickCloset(values: string[], target: string) {
   );
 }
 
-function DatePicker({ onChange }: { onChange: (value: DateState) => void }) {
+function DatePicker({
+  minDate,
+  maxDate,
+  onChange,
+}: {
+  minDate: Date;
+  maxDate: Date;
+  onChange: (value: DateState) => void;
+}) {
+  const monthRange = getMonthRange(minDate, today);
+  const years = getYearsByMonthRange(monthRange);
   const [selectDate, setSelectDate] = useState(false);
 
   const [pickerValue, setPickerValue] = useState<DateState>({
@@ -64,7 +68,7 @@ function DatePicker({ onChange }: { onChange: (value: DateState) => void }) {
       year: nextYear,
       month: nextMonth,
       minDate,
-      maxDate,
+      maxDate: today,
     });
 
     const nextDay = days.includes(forcedDay)
@@ -106,7 +110,7 @@ function DatePicker({ onChange }: { onChange: (value: DateState) => void }) {
 
               onChange(nextValue);
             }}
-            className="[&>div:last-child]:bg-background-black transition-all [&>div:last-child]:rounded-lg [&>div:last-child>div]:hidden"
+            className="transition-all [&>div:last-child]:rounded-lg [&>div:last-child]:bg-[#B1DFDA] [&>div:last-child>div]:hidden"
           >
             <Picker.Column name="year" className="z-10">
               {years.map((y) => (
@@ -114,7 +118,10 @@ function DatePicker({ onChange }: { onChange: (value: DateState) => void }) {
                   {({ selected }) => (
                     <div
                       className={cn(
-                        selected ? 'text-white' : 'text-sub-font-black',
+                        selected
+                          ? 'text-background-black'
+                          : 'text-sub-font-black',
+                        'transition-colors',
                       )}
                     >
                       {y}년
@@ -131,7 +138,10 @@ function DatePicker({ onChange }: { onChange: (value: DateState) => void }) {
                     {({ selected }) => (
                       <div
                         className={cn(
-                          selected ? 'text-white' : 'text-sub-font-black',
+                          selected
+                            ? 'text-background-black'
+                            : 'text-sub-font-black',
+                          'transition-colors',
                         )}
                       >
                         {month}월
@@ -153,7 +163,10 @@ function DatePicker({ onChange }: { onChange: (value: DateState) => void }) {
                   {({ selected }) => (
                     <div
                       className={cn(
-                        selected ? 'text-white' : 'text-sub-font-black',
+                        selected
+                          ? 'text-background-black'
+                          : 'text-sub-font-black',
+                        'transition-colors',
                       )}
                     >
                       {day}일
