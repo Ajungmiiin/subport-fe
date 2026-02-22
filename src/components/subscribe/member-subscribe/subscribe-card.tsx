@@ -1,4 +1,4 @@
-import type { MemberSubscribeItem } from '@/types/subscribe';
+import type { MemberSubscriptionsItem } from '@/types/subscribe';
 import { Link } from 'react-router-dom';
 import SubscribeFallbackImage from '@/assets/subscribe-fallback-image.svg';
 import { cn, formatKRWInput } from '@/lib/utils';
@@ -7,11 +7,14 @@ function SubscribeCard({
   subscribeInfo,
   unActive = false,
 }: {
-  subscribeInfo: MemberSubscribeItem;
+  subscribeInfo: MemberSubscriptionsItem;
   unActive?: boolean;
 }) {
   return (
-    <Link to="/" className="bg-box-black block rounded-xl p-5">
+    <Link
+      to={`/member-subscribe/${subscribeInfo.id}`}
+      className="bg-box-black block rounded-xl p-5"
+    >
       <div className="flex items-center gap-3">
         <img
           className="aspect-square w-12.5 overflow-hidden rounded-lg"
