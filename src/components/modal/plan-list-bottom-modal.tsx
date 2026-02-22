@@ -1,21 +1,21 @@
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Informationicon from '@/assets/icons/information-icon.svg?react';
 
 import { Button } from '../ui/button';
 import { Drawer, DrawerContent, DrawerTitle } from '../ui/drawer';
-import useGetPlanList from '@/hooks/queries/use-get-plan-list';
-import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
+
 import { useState } from 'react';
 import type { PlanType } from '../subscribe/add-subscribe-form';
-import { Plus } from 'lucide-react';
-import { cn } from '@/lib/utils';
+
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
+import PlanSelector from '../plan/plan-selector';
 
 interface PlanListBottomModalProps {
   open: boolean;
   onClose: () => void;
-  onSelect: ({ id, name, price }: PlanType) => void;
+  onSelect: (selectPlan: PlanType) => void;
   defaultValue?: string;
+  id: string;
 }
 
 function PlanListBottomModal({
@@ -23,30 +23,33 @@ function PlanListBottomModal({
   onClose,
   onSelect,
   defaultValue,
+  id,
 }: PlanListBottomModalProps) {
   const navigate = useNavigate();
   const [openDrawer, setOpenDarwer] = useState(false);
-  const [selectedId, setSelectedId] = useState<string | undefined>(
-    defaultValue,
-  );
-  const { id } = useParams();
+  const [selectedPlan, setSelectedPlan] = useState<PlanType>();
+  console.log('current selected plan', selectedPlan);
+  const showUsdTooltip = selectedPlan?.amountUnit === 'USD';
 
-  const { data: plans } = useGetPlanList(id as string);
+  const handleSelectPlan = () => {
+    if (!selectedPlan) {
+      console.log('selectedPlan undefined');
+      onClose();
+      return;
+    }
 
-  const handleOpenChange = () => {
-    setSelectedId(defaultValue);
-
+    console.log('selected Plan success');
+    onSelect(selectedPlan);
     onClose();
   };
 
-  if (!plans) return null;
-
-  const selectedPlan = plans.find((plan) => plan.id.toString() === selectedId);
-  const showUsdTooltip = selectedPlan?.amountUnit === 'USD';
+  const handleOpenChange = () => {
+    onClose();
+  };
 
   return (
     <>
-      <Drawer open={open} onOpenChange={handleOpenChange}>
+      <Drawer open={open} onOpenChange={onClose}>
         <DrawerContent
           onAnimationEnd={() => {
             if (open) {
@@ -91,7 +94,7 @@ function PlanListBottomModal({
               </div>
               <button
                 type="button"
-                onClick={() => navigate('plan/edit')}
+                onClick={() => navigate(`/subscribe/${id}/plan/edit`)}
                 className="bg-box-black block cursor-pointer rounded-full px-5 py-1.5 text-xs"
               >
                 관리
@@ -99,40 +102,12 @@ function PlanListBottomModal({
             </div>
           </DrawerTitle>
 
-          <div className="scrollbar-hide mb-4 space-y-4 overflow-y-scroll">
-            {plans.length > 0 && (
-              <RadioGroup
-                value={selectedId}
-                onValueChange={(value) => setSelectedId(value)}
-              >
-                {plans.map((plan) => (
-                  <div
-                    key={plan.id}
-                    className="bg-box-black hover:bg-box-black/80 flex cursor-pointer items-center justify-between rounded-2xl px-5 py-4 transition-colors"
-                    onClick={() => {
-                      setSelectedId(plan.id.toString());
-                    }}
-                  >
-                    <div>
-                      <p className={cn('mb-2 text-lg font-semibold')}>
-                        {plan.name}
-                      </p>
-                      <span className="text-sub-font-black text-sm">
-                        {`${plan.durationMonths > 1 ? `${plan.durationMonths}개월` : '월'} ${Number(plan.amount).toLocaleString()}${plan.amountUnit === 'KRW' ? '₩' : '$'}`}
-                      </span>
-                    </div>
-
-                    <RadioGroupItem value={plan.id.toString()} />
-                  </div>
-                ))}
-              </RadioGroup>
-            )}
-            <Link
-              to={`/subscribe/add/${id}/plan/add`}
-              className="hover:bg-box-black/80 bg-box-black flex h-32 w-full items-center justify-center rounded-2xl transition-colors"
-            >
-              <Plus className="size-10" strokeWidth={2} />
-            </Link>
+          <div className="scrollbar-hide overflow-scroll pb-4">
+            <PlanSelector
+              defaultValue={defaultValue}
+              subscribeId={id!}
+              onSelect={(selectedPlan) => setSelectedPlan(selectedPlan)}
+            />
           </div>
 
           <div className="flex items-center gap-4">
@@ -145,21 +120,7 @@ function PlanListBottomModal({
               닫기
             </Button>
             <Button
-              onClick={() => {
-                const selectedPlan = plans.find(
-                  (plan) => plan.id.toString() === selectedId,
-                );
-
-                if (!selectedPlan) return;
-
-                onSelect({
-                  id: selectedPlan.id.toString(),
-                  name: selectedPlan.name,
-                  price: selectedPlan.amount,
-                  amountUnit: selectedPlan.amountUnit as 'USD' | 'KRW',
-                });
-                onClose();
-              }}
+              onClick={handleSelectPlan}
               type="button"
               className="w-[65%]"
             >
