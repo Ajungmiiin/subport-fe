@@ -1,5 +1,4 @@
 import useGetMyProfile from '@/hooks/queries/use-get-my-profile';
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 import SubscribeCalendarIcon from '@/assets/subscribe-calendar.png';
@@ -10,11 +9,31 @@ import QuitIcon from '@/assets/icons/quit-icon.svg';
 import NotificationIcon from '@/assets/icons/notification-icon.svg';
 import FaqIcon from '@/assets/icons/faq-icon.svg';
 import { ChevronRight } from 'lucide-react';
+import MyPageSkeleton from '@/components/my/my-page-skeleton';
+import { Button } from '@/components/ui/button';
+import LogoutButton from '@/components/my/logout-button';
 function MyPage() {
-  const { data: profile, isPending: isGetProfilePending } = useGetMyProfile();
+  const {
+    data: profile,
+    isPending: isGetProfilePending,
+    refetch,
+  } = useGetMyProfile();
 
-  if (isGetProfilePending) return <p>로딩중</p>;
-  if (!profile) return <p>프로필 정보를 불러오지 못했습니다</p>;
+  if (isGetProfilePending) return <MyPageSkeleton />;
+  if (!profile)
+    return (
+      <div className="flex h-full flex-col items-center justify-center gap-2">
+        <p className="text-sub-font-black">프로필 정보를 불러오지 못했습니다</p>
+        <Button
+          type="button"
+          onClick={async () => await refetch}
+          variant={'secondary'}
+          className="rounded-lg px-4 py-1.5 font-medium"
+        >
+          다시 불러오기
+        </Button>
+      </div>
+    );
 
   return (
     <section className="scrollbar-hide h-full overflow-scroll">
@@ -39,7 +58,7 @@ function MyPage() {
           />
         </Link>
         <Link
-          to="/"
+          to="/my/subscribe"
           className="bg-box-black relative aspect-square w-1/2 overflow-hidden rounded-2xl p-4 font-semibold"
         >
           <span>구독 관리</span>
@@ -57,7 +76,10 @@ function MyPage() {
         </p>
         <ul className="bg-box-black space-y-6 rounded-2xl p-4">
           <li>
-            <Link to="/" className="flex items-center justify-between">
+            <Link
+              to="/my/edit-account"
+              className="flex items-center justify-between"
+            >
               <div className="flex items-center gap-2.5">
                 <img className="size-8" src={EditProfileIcon} alt="정보 수정" />
                 <div className="flex flex-col justify-between text-sm">
@@ -71,7 +93,7 @@ function MyPage() {
             </Link>
           </li>
           <li>
-            <button className="flex w-full items-center justify-between">
+            <LogoutButton>
               <div className="flex items-center gap-2.5">
                 <img className="size-8" src={LogoutIcon} alt="로그아웃" />
                 <div className="flex flex-col justify-between text-sm">
@@ -82,7 +104,7 @@ function MyPage() {
                 </div>
               </div>
               <ChevronRight />
-            </button>
+            </LogoutButton>
           </li>
           <li>
             <button className="flex w-full items-center justify-between">
@@ -107,7 +129,10 @@ function MyPage() {
         </p>
         <ul className="bg-box-black space-y-6 rounded-2xl p-4">
           <li>
-            <Link to="/" className="flex items-center justify-between">
+            <Link
+              to="/my/reminder"
+              className="flex items-center justify-between"
+            >
               <div className="flex items-center gap-2.5">
                 <img
                   className="size-8"
