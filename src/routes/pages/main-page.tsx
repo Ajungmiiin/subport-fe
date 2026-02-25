@@ -47,7 +47,6 @@ function MainPage() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const { active, sortBy } = parseParams(searchParams);
-  console.log(active);
   const { data: subscriptions, isPending: isGetSubscriptionsPending } =
     useGetMemberSubscriptions({ active, sortBy });
 
@@ -85,12 +84,13 @@ function MainPage() {
     <div className="scrollbar-hide flex h-full flex-col gap-6 overflow-scroll">
       <div>
         <Switch
-          checked={!active}
+          checked={active}
           onClick={toggleActive}
           className="cursor-pointer"
-        >
-          {active ? '활성화' : '비활성화'}
-        </Switch>
+          variant="label-pill"
+          onLabel="활성화"
+          offLabel="비활성화"
+        />
       </div>
 
       <div className="flex-1">
