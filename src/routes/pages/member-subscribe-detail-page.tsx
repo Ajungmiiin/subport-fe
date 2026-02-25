@@ -9,6 +9,7 @@ import AlarmIcon from '@/assets/icons/alarm-icon.svg?react';
 import ReloadIcon from '@/assets/icons/reload-icon.svg?react';
 import WalletIcon from '@/assets/icons/wallet-icon.svg?react';
 import ConfirmModal from '@/components/modal/confirm-modal';
+import MemberSubscribeDetailSkeleton from '@/components/subscribe/member-subscribe/member-subscribe-detail-skeleton';
 const formatDateKorean = (dateStr: string) => {
   const [y, m, d] = dateStr.split('-');
 
@@ -28,9 +29,8 @@ function MemberSubscribeDetailpage() {
       setModal(true);
     }
   };
-  if (isGetMemberSubscribePending) return <p>로딩</p>;
+  if (isGetMemberSubscribePending) return <MemberSubscribeDetailSkeleton />;
 
-  console.log(subscribe);
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-between pt-5">
