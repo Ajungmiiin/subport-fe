@@ -1,36 +1,78 @@
-import * as React from 'react';
 import * as SwitchPrimitive from '@radix-ui/react-switch';
-
 import { cn } from '@/lib/utils';
 
-function Switch({
+type SwitchVariant = 'label-pill' | 'dot';
+
+type Props = React.ComponentPropsWithoutRef<typeof SwitchPrimitive.Root> & {
+  variant?: SwitchVariant;
+  onLabel?: string;
+  offLabel?: string;
+};
+
+const size = {
+  'label-pill': { w: '130px', h: '45px', pad: '4px', thumb: '72px' },
+  dot: { w: '80px', h: '38px', pad: '4px', thumb: '30px' },
+} as const;
+
+export function Switch({
+  variant = 'label-pill',
+  onLabel = 'ON',
+  offLabel = 'OFF',
   className,
-  children,
   ...props
-}: React.ComponentProps<typeof SwitchPrimitive.Root>) {
+}: Props) {
+  const s = size[variant];
+
   return (
     <SwitchPrimitive.Root
-      data-slot="switch"
+      {...props}
+      style={
+        {
+          '--w': s.w,
+          '--h': s.h,
+          '--pad': s.pad,
+          '--thumb': s.thumb,
+        } as React.CSSProperties
+      }
       className={cn(
-        'peer focus-visible:border-ring focus-visible:ring-ring/50 dark:data-[state=unchecked]:bg-input/80 data-[state=checked]:bg-box-black data-[state=unchecked]:bg-box-black inline-flex w-full max-w-28 min-w-8 shrink-0 items-center rounded-full border border-transparent shadow-xs transition-all outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50',
+        'group relative inline-flex h-(--h) w-(--w) cursor-pointer items-center overflow-hidden rounded-full p-(--pad) transition-colors',
+        variant === 'label-pill'
+          ? 'bg-box-black'
+          : 'data-[state=checked]:bg-[#eaf4f2] data-[state=unchecked]:bg-[#242429]',
         className,
       )}
-      {...props}
     >
+      {variant === 'dot' && (
+        <>
+          <span className="pointer-events-none absolute left-4 text-sm font-semibold text-black opacity-0 group-data-[state=checked]:opacity-100">
+            {onLabel}
+          </span>
+          <span className="pointer-events-none absolute right-3 text-sm font-semibold opacity-100 group-data-[state=checked]:opacity-0">
+            {offLabel}
+          </span>
+        </>
+      )}
+
       <SwitchPrimitive.Thumb
-        data-slot="switch-thumb"
         className={cn(
-          'bg-background dark:data-[state=unchecked]:bg-foreground dark:data-[state=checked]:bg-primary-foreground pointer-events-none block min-h-4 min-w-4 rounded-full ring-0 transition-transform data-[state=checked]:translate-x-[60%] data-[state=unchecked]:translate-x-0',
+          'pointer-events-none absolute top-(--pad) left-(--pad) rounded-full transition-[left] duration-200',
+          'text-sm text-black',
+          variant === 'label-pill'
+            ? 'h-[calc(var(--h)-var(--pad)*2)] w-(--thumb) bg-white data-[state=checked]:left-[calc(100%-var(--thumb)-var(--pad))] data-[state=checked]:bg-[#d9f5f0] data-[state=unchecked]:left-(--pad)'
+            : 'h-(--thumb) w-(--thumb) bg-[#69cec2] data-[state=checked]:left-[calc(var(--w)-var(--thumb)-var(--pad))]',
         )}
       >
-        {children && (
-          <span className="text-background-black block w-17.5 py-2.5 text-xs font-semibold">
-            {children}
-          </span>
+        {variant === 'label-pill' && (
+          <>
+            <span className="absolute inset-0 grid place-items-center font-semibold opacity-100 group-data-[state=checked]:opacity-0">
+              {offLabel}
+            </span>
+            <span className="absolute inset-0 grid place-items-center font-semibold opacity-0 group-data-[state=checked]:opacity-100">
+              {onLabel}
+            </span>
+          </>
         )}
       </SwitchPrimitive.Thumb>
     </SwitchPrimitive.Root>
   );
 }
-
-export { Switch };
