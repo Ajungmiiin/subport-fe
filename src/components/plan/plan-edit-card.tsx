@@ -1,5 +1,5 @@
 import type { PlanItem } from '@/types/plan';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import EditIcon from '@/assets/icons/edit-icon.svg?react';
 import DeleteIcon from '@/assets/icons/delete-icon.svg?react';
 import { Link } from 'react-router-dom';

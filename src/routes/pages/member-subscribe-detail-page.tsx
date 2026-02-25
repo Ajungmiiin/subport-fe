@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import useGetMemberSubscribeById from '@/hooks/queries/use-get-member-subscribe-by-id';
 import { formatKRWInput, formatUSDInput } from '@/lib/utils';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import ProccessBarCoin from '@/assets/icons/proccess-bar-icon.svg?react';
 

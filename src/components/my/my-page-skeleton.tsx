@@ -1,5 +1,3 @@
-import React from 'react';
-
 function MyPageSkeleton() {
   return (
     <div className="flex flex-col">

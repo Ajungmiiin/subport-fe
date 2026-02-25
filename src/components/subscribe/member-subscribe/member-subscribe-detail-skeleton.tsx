@@ -1,5 +1,3 @@
-import React from 'react';
-
 function MemberSubscribeDetailSkeleton() {
   return (
     <div className="flex flex-col pt-5">

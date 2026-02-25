@@ -1,5 +1,3 @@
-import React from 'react';
-
 function SubscribeListSkeleton() {
   return (
     <div className="flex flex-col gap-4">
