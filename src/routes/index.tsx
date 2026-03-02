@@ -27,6 +27,7 @@ import MyPageSectionPage from './pages/my-page-section-page';
 import { queryClient } from '@/components/providers/query-provider';
 import { QUERY_KEY } from '@/constants/query-key';
 import { getMyAccount, getReminderSettings } from '@/api/profile';
+import FaqPage from './pages/faq-page';
 
 const router = createBrowserRouter([
   {
@@ -214,6 +215,14 @@ const router = createBrowserRouter([
                 },
               },
             ],
+          },
+
+          {
+            path: '/faq',
+            element: <FaqPage />,
+            handle: {
+              header: { header: true, title: 'FAQ' },
+            },
           },
         ],
       },
