@@ -34,7 +34,8 @@ type SubscribeFormProps = {
 };
 
 function AddSubscribeForm({ id, onSubmit, defaultValues }: SubscribeFormProps) {
-  const { data: subscribe } = useGetSubscriptionsById(id);
+  const { data: subscribe, isPending: isGetSubscribePending } =
+    useGetSubscriptionsById(id);
   const [plan, setPlan] = useState(false);
   const [selectPlan, setSelctPlan] = useState<PlanType>();
   const [dutchPay, setDutchPay] = useState(false);
@@ -79,7 +80,16 @@ function AddSubscribeForm({ id, onSubmit, defaultValues }: SubscribeFormProps) {
       amountUnit: selectPlan!.amountUnit,
     });
   };
-  if (!subscribe) return <p>Loading</p>;
+  if (isGetSubscribePending || !subscribe)
+    return (
+      <div className="flex flex-col">
+        <div className="bg-box-black mb-4 h-22 animate-pulse rounded-lg"></div>
+        <div className="bg-box-black mb-4 h-22 animate-pulse rounded-lg"></div>
+        <div className="bg-box-black mb-4 h-8 animate-pulse rounded-lg"></div>
+        <div className="bg-box-black mb-4 h-22 animate-pulse rounded-lg"></div>
+        <div className="bg-box-black mb-4 h-29 animate-pulse rounded-lg"></div>
+      </div>
+    );
 
   return (
     <>
