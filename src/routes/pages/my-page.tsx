@@ -47,7 +47,7 @@ function MyPage() {
 
       <div className="mb-4 flex items-center gap-4">
         <Link
-          to="/"
+          to="/my/schedule"
           className="bg-box-black relative aspect-square w-1/2 overflow-hidden rounded-2xl p-4 font-semibold"
         >
           <span>구독 일정</span>
