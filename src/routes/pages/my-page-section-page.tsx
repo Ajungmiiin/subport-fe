@@ -3,6 +3,7 @@ import EditPayMentDateNotificationForm from '@/components/my/edit-payment-date-n
 import MySubscriptionsList from '@/components/my/my-subscriptions-list';
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import MySubscribeSchedulePage from './my-subscribe-schedule-page';
 
 function MyPageSectionPage() {
   const { section } = useParams();
@@ -12,7 +13,8 @@ function MyPageSectionPage() {
     if (
       section !== 'subscribe' &&
       section !== 'reminder' &&
-      section !== 'edit-account'
+      section !== 'edit-account' &&
+      section !== 'schedule'
     ) {
       navigate('/my', { replace: true });
       return;
@@ -23,6 +25,7 @@ function MyPageSectionPage() {
       {section === 'subscribe' && <MySubscriptionsList />}
       {section === 'reminder' && <EditPayMentDateNotificationForm />}
       {section === 'edit-account' && <EditMyAccountForm />}
+      {section === 'schedule' && <MySubscribeSchedulePage />}
     </section>
   );
 }
