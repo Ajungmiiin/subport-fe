@@ -121,7 +121,7 @@ function PlanForm({
                 <div className="w-full">
                   <div className="flex w-full items-center gap-2">
                     <input
-                      inputMode="numeric"
+                      inputMode="decimal"
                       min={0}
                       type="text"
                       id="amount"
@@ -167,13 +167,17 @@ function PlanForm({
                     )}
                   >
                     <Picker
-                      height={openPicker ? 65 : 0}
+                      height={openPicker ? 110 : 0}
                       wheelMode="natural"
                       value={selectAmountUnit}
                       onChange={(nextValue) => {
                         setSelectAmountUnit(nextValue);
                         form.setValue('amountUnit', nextValue.amountUnit);
                         form.setValue('amount', '0', { shouldValidate: true });
+                      }}
+                      style={{
+                        maskImage: 'none',
+                        WebkitMaskImage: 'none',
                       }}
                       className="transition-all [&>div:last-child]:rounded-sm [&>div:last-child]:bg-[#B1DFDA] [&>div:last-child>div]:hidden"
                     >

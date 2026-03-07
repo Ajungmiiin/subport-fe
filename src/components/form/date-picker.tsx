@@ -88,7 +88,7 @@ function DatePicker({
           className="flex cursor-pointer items-center justify-between"
           onClick={() => setSelectDate((prev) => !prev)}
         >
-          <span className="text-lg">{`${pickerValue.year}년 ${pickerValue.month}월 ${pickerValue.day}일`}</span>
+          <span className="text-lg">{`${pickerValue.year}년 ${Number(pickerValue.month)}월 ${Number(pickerValue.day)}일`}</span>
           <ChevronUp
             className={cn('transition-all', selectDate ? '' : 'rotate-180')}
           />
@@ -101,7 +101,11 @@ function DatePicker({
           )}
         >
           <Picker
-            height={selectDate ? 100 : 0}
+            height={selectDate ? 110 : 0}
+            style={{
+              maskImage: 'none',
+              WebkitMaskImage: 'none',
+            }}
             aria-hidden={!selectDate}
             wheelMode="natural"
             value={pickerValue}
@@ -144,7 +148,7 @@ function DatePicker({
                           'transition-colors',
                         )}
                       >
-                        {month}월
+                        {Number(month)}월
                       </div>
                     )}
                   </Picker.Item>
@@ -169,7 +173,7 @@ function DatePicker({
                         'transition-colors',
                       )}
                     >
-                      {day}일
+                      {Number(day)}일
                     </div>
                   )}
                 </Picker.Item>

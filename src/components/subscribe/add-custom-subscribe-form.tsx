@@ -35,7 +35,6 @@ function AddCustomSubscribeForm({
   name,
   image,
 }: CustomSubscribeForm) {
-  console.log(type, name);
   const { data: types } = useGetSubscribeTypes();
 
   const [selectImage, setSelectImage] = useState<string | null>(
@@ -122,14 +121,18 @@ function AddCustomSubscribeForm({
                   )}
                 >
                   <Picker
-                    height={openPicker ? 100 : 0}
+                    style={{
+                      maskImage: 'none',
+                      WebkitMaskImage: 'none',
+                    }}
+                    height={openPicker ? 110 : 0}
                     wheelMode="natural"
                     value={selectType}
                     onChange={(nextValue) => {
                       setSelectType(nextValue);
                       field.onChange(nextValue.subscribeType);
                     }}
-                    className="transition-all [&>div:last-child]:rounded-sm [&>div:last-child]:bg-[#B1DFDA] [&>div:last-child>div]:hidden"
+                    className="flex flex-col transition-all [&>div:last-child]:rounded-sm [&>div:last-child]:bg-[#B1DFDA] [&>div:last-child>div]:hidden"
                   >
                     <Picker.Column name="subscribeType" className="z-10">
                       {types?.map((type) => (
