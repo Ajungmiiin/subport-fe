@@ -48,7 +48,7 @@ function PlanEditorPage() {
                     className="bg-background-black flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl py-4"
                   >
                     <span>수정하기</span>
-                    <EditIcon className="size-5" />
+                    <EditIcon className="fill-sub-font-black size-5" />
                   </Link>
                   <button
                     onClick={() => {
@@ -59,7 +59,7 @@ function PlanEditorPage() {
                   >
                     <span>삭제하기</span>
 
-                    <DeleteIcon className="size-5" />
+                    <DeleteIcon className="fill-sub-font-black size-5" />
                   </button>
                 </div>
               </div>
