@@ -1,8 +1,8 @@
 import {
   CircleCheckIcon,
+  CircleXIcon,
   InfoIcon,
   Loader2Icon,
-  OctagonXIcon,
   TriangleAlertIcon,
 } from 'lucide-react';
 import { useTheme } from 'next-themes';
@@ -38,7 +38,9 @@ const Toaster = ({ ...props }: ToasterProps) => {
         ),
         info: <InfoIcon className="size-4" />,
         warning: <TriangleAlertIcon className="size-4" />,
-        error: <OctagonXIcon className="size-4" />,
+        error: (
+          <CircleXIcon className="fill-d-day-color-7day size-6 stroke-white" />
+        ),
         loading: <Loader2Icon className="size-4 animate-spin" />,
       }}
       style={
