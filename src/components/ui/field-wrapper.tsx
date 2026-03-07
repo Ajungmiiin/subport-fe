@@ -19,8 +19,8 @@ function FieldWrapper({
   return (
     <div
       className={cn(
-        error && 'border-d-day-color-7day border',
-        'bg-box-black flex flex-col items-start gap-2 rounded-xl p-4.5',
+        error ? 'border-d-day-color-7day' : 'border-box-black',
+        'bg-box-black flex flex-col items-start gap-2 rounded-xl border p-4.5 transition-all',
         className,
       )}
     >
