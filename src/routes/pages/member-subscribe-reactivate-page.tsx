@@ -88,6 +88,11 @@ function MemberSubscribeReactivatePage() {
       </p>
       {reuse === 'custom' && (
         <AddSubscribeForm
+          minDate={parse(
+            subscribe!.paymentDate.toString(),
+            'yyyy-MM-dd',
+            new Date(),
+          )}
           id={subscribe!.subscriptionId.toString()}
           onSubmit={onSubmitReactivateCustom}
         />
