@@ -53,6 +53,7 @@ function AddCustomSubscribeForm({
       type: type || 'OTT',
       name: name || '',
       image: image ?? null,
+      defaultImageName: null,
     },
   });
 
@@ -80,13 +81,19 @@ function AddCustomSubscribeForm({
               <CustomSubscribeImageSelectModal
                 open={openImageModal}
                 onClose={() => setOpenImageModal(false)}
-                onSelect={(file) => {
+                onSelect={(file: {
+                  image: File;
+                  defaultImageName: string | null;
+                }) => {
                   if (selectImage) {
                     URL.revokeObjectURL(selectImage);
                   }
-                  setSelectImage(URL.createObjectURL(file));
+                  setSelectImage(URL.createObjectURL(file.image));
                   setOpenImageModal(false);
-                  form.setValue('image', file);
+                  if (file.image) {
+                    form.setValue('image', file.image);
+                  }
+                  form.setValue('defaultImageName', file.defaultImageName);
                 }}
               />
             </>

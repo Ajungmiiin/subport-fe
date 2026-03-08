@@ -70,7 +70,7 @@ const CUSTOM_SUBSCRIBE_IMAGES = [
 interface CustomSubscribeImageModalProps {
   open: boolean;
   onClose: () => void;
-  onSelect: (file: File) => void;
+  onSelect: (file: { image: File; defaultImageName: string | null }) => void;
 }
 
 function CustomSubscribeImageSelectModal({
@@ -88,7 +88,7 @@ function CustomSubscribeImageSelectModal({
       type: blob.type,
     });
 
-    onSelect(file);
+    onSelect({ defaultImageName: image.id, image: file });
   };
 
   return (
@@ -135,7 +135,7 @@ function CustomSubscribeImageSelectModal({
               const { files } = e.target;
               if (!files || files.length <= 0) return;
               const file = files[0];
-              onSelect(file);
+              onSelect({ defaultImageName: null, image: file });
             }}
           />
         </div>

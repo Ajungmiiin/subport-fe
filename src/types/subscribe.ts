@@ -17,6 +17,7 @@ export type AddCustomSubscribeReq = {
   image: File | null;
   name: string;
   type: string;
+  defaultImageName: string | null;
 };
 
 export type MemberSubscriptionSort =

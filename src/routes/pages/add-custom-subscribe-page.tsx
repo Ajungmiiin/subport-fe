@@ -18,7 +18,12 @@ function AddCustomSubscribePage() {
     });
 
   const onSubmit = (formData: AddCustomSubscribeReq) => {
-    addCustomSubscribe(formData);
+    addCustomSubscribe({
+      defaultImageName: formData.defaultImageName,
+      name: formData.name,
+      type: formData.type,
+      image: formData.defaultImageName ? null : formData.image,
+    });
   };
 
   return (
