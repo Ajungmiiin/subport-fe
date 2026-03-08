@@ -86,7 +86,7 @@ function SubscribeEditorPage() {
       {!customSubscriptions ||
         (customSubscriptions.length <= 0 && (
           <p className="text-sub-font-black flex h-full flex-1 items-center justify-center">
-            등록한 멤버십이 존재하지 않습니다.
+            직접 등록한 구독 서비스가 존재하지 않습니다.
           </p>
         ))}
 
