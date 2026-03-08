@@ -6,7 +6,7 @@ export const getPlans = async (planId: string) => {
     `/api/subscriptions/${planId}/plans`,
   );
 
-  return response.data.plans;
+  return response.data;
 };
 
 export const getPlan = async (planId: string) => {
