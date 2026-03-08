@@ -15,7 +15,15 @@ function useUpdateCustomSubscribeMutate(callbacks?: useMutationCallbacks) {
       queryClient.invalidateQueries({
         queryKey: QUERY_KEY.subscriptions.byId(variables.subscribeId),
       });
-
+      queryClient.invalidateQueries({
+        queryKey: ['member-subscriptions'],
+        predicate: (q) => {
+          const second = q.queryKey[1];
+          return (
+            typeof second === 'object' && second !== null && 'active' in second
+          );
+        },
+      });
       callbacks?.onSuccess?.(data);
     },
   });
