@@ -23,7 +23,9 @@ function PlanEditorPage() {
 
   if (isGetPlanListPending) return <div></div>;
 
-  const customPlans = plans?.filter((plan) => plan.defaultProvided === false);
+  const customPlans = plans?.plans.filter(
+    (plan) => plan.defaultProvided === false,
+  );
 
   const handleCloseModal = () => {
     setModal(false);

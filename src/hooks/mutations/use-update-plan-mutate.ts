@@ -1,18 +1,16 @@
 import { updatePlan } from '@/api/plan';
 import { QUERY_KEY } from '@/constants/query-key';
 import type { useMutationCallbacks } from '@/types/mutate';
-import { type PlanItem } from '@/types/plan';
+import { type PlanItem, type PlanList } from '@/types/plan';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-function useUpdatePlanMutate(callbacks?: useMutationCallbacks) {
+function useUpdatePlanMutate(callbacks?: useMutationCallbacks<PlanItem>) {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: updatePlan,
     onSuccess: (data, variables) => {
-      callbacks?.onSuccess?.(data);
-
-      const prevPlanList = queryClient.getQueryData<PlanItem[]>(
+      const prevPlanList = queryClient.getQueryData<PlanList>(
         QUERY_KEY.plans.list(variables.subscribeId.toString()),
       );
 
@@ -20,31 +18,22 @@ function useUpdatePlanMutate(callbacks?: useMutationCallbacks) {
         QUERY_KEY.plans.byId(variables.planId.toString()),
       );
 
-      if (!prevPlanList || !prevPlanItem)
+      if (!prevPlanList || !prevPlanItem) {
         throw new Error('멤버십 정보를 불러오지 못했습니다.');
+      }
 
-      const updatedPlanItem = {
-        name: variables.name,
-        amount: variables.amount,
-        id: variables.planId,
-        amountUnit: variables.amountUnit,
-        durationMonths: variables.durationMonths,
-        defaultProvided: prevPlanItem.defaultProvided,
-      };
-
-      const updatedPlanList = prevPlanList.map((plan) =>
-        plan.id === variables.planId ? updatedPlanItem : plan,
+      const updatedPlanList = prevPlanList.plans.map((plan) =>
+        plan.id === data.id ? data : plan,
       );
 
-      queryClient.setQueryData(
+      queryClient.setQueryData<PlanList>(
         QUERY_KEY.plans.list(variables.subscribeId.toString()),
-        updatedPlanList,
+        { planUrl: prevPlanList.planUrl, plans: updatedPlanList },
       );
 
-      queryClient.setQueryData(
-        QUERY_KEY.plans.byId(variables.planId.toString()),
-        updatedPlanItem,
-      );
+      queryClient.setQueryData(QUERY_KEY.plans.byId(data.id.toString()), data);
+
+      callbacks?.onSuccess?.(data);
     },
   });
 }
