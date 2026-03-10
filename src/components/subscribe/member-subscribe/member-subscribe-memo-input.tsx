@@ -13,7 +13,7 @@ function MemberSubscribeMemoInput({
 }: MemberSubscribeMemoInputProps) {
   const { mutate: updateMemo } = useUpdatedMemberSubscribeMemo({
     onSuccess: () => {
-      toast.success('메모가 수정되었습니다.');
+      toast.success('메모가 수정되었습니다.', { position: 'bottom-center' });
       setEdit(false);
     },
   });
@@ -34,6 +34,14 @@ function MemberSubscribeMemoInput({
       memoInputRef.current?.focus();
     }
   }, [edit]);
+
+  useEffect(() => {
+    return () => {
+      if (edit) {
+        handleUpdatedMemo();
+      }
+    };
+  }, []);
 
   return (
     <div
