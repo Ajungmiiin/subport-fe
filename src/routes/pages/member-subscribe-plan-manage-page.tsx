@@ -16,7 +16,9 @@ function MemberSubscribePlanManagePage() {
   if (isGetMemberSubscribePending || isGetPlansPending) return <p>Loading</p>;
   if (!subscribe || !plans) return <p>데이터 없음</p>;
 
-  const customPlans = plans.filter((plan) => plan.defaultProvided === false);
+  const customPlans = plans.plans.filter(
+    (plan) => plan.defaultProvided === false,
+  );
 
   return (
     <>
