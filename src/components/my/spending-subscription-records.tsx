@@ -31,7 +31,7 @@ function SpendingSubscriptionRecords({
         </p>
         {variant === 'ongoing' && (
           <span className="text-sub-font-black mt-2 text-sm">
-            아직 확정되지 않은 구독 이에요
+            아직 확정되지 않은 구독이에요
           </span>
         )}
       </div>
