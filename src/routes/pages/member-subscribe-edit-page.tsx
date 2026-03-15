@@ -1,29 +1,13 @@
-import { Button } from '@/components/ui/button';
-import useDeactivateMemberSubscribeMutate from '@/hooks/mutations/use-deactivate-member-subscribe-mutate';
 import useGetMemberSubscribeById from '@/hooks/queries/use-get-member-subscribe-by-id';
 import { Loader2, LucideChevronRight } from 'lucide-react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { toast } from 'sonner';
+import { Link, useParams } from 'react-router-dom';
 
 function MemberSubscribeEditPage() {
-  const navigate = useNavigate();
   const { memberSubscribeId } = useParams();
 
   const { data: subscribe, isPending: isGetMemberSubscribePending } =
     useGetMemberSubscribeById(memberSubscribeId!);
-  const { mutate: deactivateMemberSubscribe } =
-    useDeactivateMemberSubscribeMutate({
-      onSuccess: () => {
-        navigate(-1);
-        toast.success('구독 서비스가 비활성화 되었습니다', {
-          position: 'bottom-center',
-        });
-      },
-    });
 
-  const handleClickMemberSubscrbieDeActive = () => {
-    deactivateMemberSubscribe({ memberSubscribeId: memberSubscribeId! });
-  };
   if (isGetMemberSubscribePending) return <Loader2 />;
 
   if (!subscribe) return <p>데이터 없음</p>;
@@ -60,13 +44,6 @@ function MemberSubscribeEditPage() {
           <p>{subscribe.durationMonths + '달'}</p>
         </div>
       </div>
-
-      <Button
-        onClick={handleClickMemberSubscrbieDeActive}
-        variant={'secondary'}
-      >
-        비활성화 하기
-      </Button>
     </section>
   );
 }
