@@ -59,6 +59,11 @@ function EditMyAccountForm() {
     updatedAccount(formData);
   };
 
+  const nicknameValue = form.watch('nickname');
+  const emailValue = form.watch('email');
+
+  const isUnchanged =
+    nicknameValue === account?.nickname && emailValue === account?.email;
   if (isGetMyAccountPending || !account) return <p>로딩</p>;
 
   return (
@@ -165,7 +170,9 @@ function EditMyAccountForm() {
 
       <Button
         form="updatedAccount"
-        disabled={!form.formState.isValid || isUpdatedAccountPending}
+        disabled={
+          !form.formState.isValid || isUpdatedAccountPending || isUnchanged
+        }
       >
         저장하기
       </Button>

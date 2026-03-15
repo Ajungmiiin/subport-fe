@@ -58,6 +58,12 @@ function EditPayMentDateNotificationForm() {
     }
   };
 
+  const isUnchanged = reminderSettings
+    ? notification === reminderSettings.paymentReminderEnabled &&
+      (!notification ||
+        reminderSettings.reminderDaysBefore === selectReminderDay.reminderDay)
+    : true;
+
   if (isGetReminderSettingsPending) return <p>로딩</p>;
 
   return (
@@ -141,7 +147,7 @@ function EditPayMentDateNotificationForm() {
       <Button
         type="button"
         onClick={onSubmit}
-        disabled={isUpdatedReminderSettingsPending}
+        disabled={isUpdatedReminderSettingsPending || isUnchanged}
       >
         저장하기
       </Button>
