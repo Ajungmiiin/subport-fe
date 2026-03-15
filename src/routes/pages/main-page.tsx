@@ -12,11 +12,12 @@ import {
 import { Switch } from '@/components/ui/switch';
 import useGetMemberSubscriptions from '@/hooks/queries/use-get-member-subscriptions';
 import type {
+  MemberSubscribeAmounts,
   MemberSubscriptions,
   MemberSubscriptionSort,
   SubscriptionGroupMap,
 } from '@/types/subscribe';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
 
 import OnBoardingBottomModal from '@/components/modal/onboarding-bottom-modal';
@@ -31,6 +32,11 @@ const SUBSCIRBE_SORTS = [
 
 const DEFAULT_ACTIVE = true;
 const DEFAULT_SORT: MemberSubscriptionSort = 'type';
+const DEFAULT_MONTHLY_CARD: MemberSubscribeAmounts = {
+  currentMonthPaidAmount: 0,
+  currentMonthTotalAmount: 0,
+  paymentProgressPercent: 0,
+};
 
 const SORT_VALUES = new Set(SUBSCIRBE_SORTS.map((s) => s.value));
 
@@ -55,10 +61,23 @@ function MainPage() {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [open] = useState(() => Boolean(location.state?.showOnboarding));
+  const [monthlyCard, setMonthlyCard] =
+    useState<MemberSubscribeAmounts>(DEFAULT_MONTHLY_CARD);
 
   const { active, sortBy } = parseParams(searchParams);
   const { data: subscriptions, isPending: isGetSubscriptionsPending } =
     useGetMemberSubscriptions({ active, sortBy });
+
+  useEffect(() => {
+    if (!active || !subscriptions) return;
+
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMonthlyCard({
+      currentMonthPaidAmount: subscriptions.currentMonthPaidAmount,
+      currentMonthTotalAmount: subscriptions.currentMonthTotalAmount,
+      paymentProgressPercent: subscriptions.paymentProgressPercent,
+    });
+  }, [active, subscriptions]);
 
   const toggleActive = () => {
     setSearchParams((prev) => {
@@ -109,9 +128,9 @@ function MainPage() {
             <>
               <div className="mb-4 flex flex-col items-end gap-4">
                 <MonthlySpendingCard
-                  paidAmount={subscriptions?.currentMonthPaidAmount ?? 0}
-                  progressPercent={subscriptions?.paymentProgressPercent ?? 0}
-                  totalAmount={subscriptions?.currentMonthTotalAmount ?? 0}
+                  paidAmount={monthlyCard.currentMonthPaidAmount}
+                  progressPercent={monthlyCard.paymentProgressPercent}
+                  totalAmount={monthlyCard.currentMonthTotalAmount}
                 />
                 <Select
                   onValueChange={(sortBy: MemberSubscriptionSort) =>
