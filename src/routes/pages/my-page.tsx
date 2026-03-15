@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom';
 
 import SubscribeCalendarIcon from '@/assets/subscribe-calendar.png';
 import SubscribeManageIcon from '@/assets/subscribe-manage.png';
-import EditProfileIcon from '@/assets/icons/edit-proifle-icon.svg';
+import EditProfileIcon from '@/assets/icons/edit-profile-icon.svg';
 import LogoutIcon from '@/assets/icons/logout-icon.svg';
 import NotificationIcon from '@/assets/icons/notification-icon.svg';
+
 import FaqIcon from '@/assets/icons/faq-icon.svg';
 import { ChevronRight } from 'lucide-react';
 import MyPageSkeleton from '@/components/my/my-page-skeleton';
@@ -36,7 +37,7 @@ function MyPage() {
     );
 
   return (
-    <section className="scrollbar-hide h-full overflow-scroll">
+    <section className="scrollbar-hide h-full overflow-scroll pb-6">
       <p className="mb-4 w-1/2 text-2xl/relaxed font-semibold">
         {`${profile.nickname}님!`}
         <br />
