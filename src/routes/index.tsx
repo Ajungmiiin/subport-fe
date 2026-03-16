@@ -194,7 +194,7 @@ const router = createBrowserRouter([
                 path: '/my/:section',
                 element: <MyPageSectionPage />,
                 handle: {
-                  header: { header: true },
+                  header: { header: true, backTo: '/my' },
                 },
                 loader: async ({ params }) => {
                   if (params.section === 'edit-account') {

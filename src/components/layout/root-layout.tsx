@@ -8,7 +8,12 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Toaster } from '../ui/sonner';
 
 type LayoutConfig = {
-  header?: { header?: boolean; title?: string; right?: ReactNode };
+  header?: {
+    header?: boolean;
+    title?: string;
+    right?: ReactNode;
+    backTo?: string;
+  };
   bottomNavigation?: boolean;
 };
 
@@ -37,6 +42,7 @@ function RootLayout() {
             <GlobalHeader
               title={layout.header.title}
               right={layout.header.right}
+              backTo={layout.header.backTo}
             />
           )}
 
