@@ -1,7 +1,7 @@
 import BackgroundRectangleImage from '@/assets/background-rectangle-image.png';
 import EmptyFileImage from '@/assets/empty-file-image.png';
 import FillFileImage from '@/assets/fill-file-image.png';
-import { formatKRWInput } from '@/lib/utils';
+import { cn, formatKRWInput } from '@/lib/utils';
 import { format } from 'date-fns';
 
 type MonthlySpendingCardProps = {
@@ -62,7 +62,10 @@ function MonthlySpendingCard({
         src={folderImage}
         alt=""
         aria-hidden
-        className="pointer-events-none absolute right-2 bottom-0 z-10 size-28 select-none"
+        className={cn(
+          folderImage === EmptyFileImage ? '-bottom-9' : 'bottom-0',
+          'pointer-events-none absolute right-2 z-10 size-28 select-none',
+        )}
       />
     </section>
   );
