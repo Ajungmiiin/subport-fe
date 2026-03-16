@@ -17,6 +17,9 @@ function useMemberSubscribeActivateMutate(
         QUERY_KEY.memberSubscriptions.byId(data.id.toString()),
         data,
       );
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEY.spendingRecords.all,
+      });
 
       queryClient.invalidateQueries({
         queryKey: ['member-subscriptions'],

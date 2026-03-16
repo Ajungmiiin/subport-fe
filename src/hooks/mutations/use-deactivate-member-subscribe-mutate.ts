@@ -25,6 +25,10 @@ function useDeactivateMemberSubscribeMutate(
           );
         },
       });
+
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEY.spendingRecords.all,
+      });
     },
   });
 }
