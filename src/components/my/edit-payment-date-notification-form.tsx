@@ -112,11 +112,15 @@ function EditPayMentDateNotificationForm() {
                 )}
               >
                 <Picker
-                  height={openPicker ? 65 : 0}
+                  height={openPicker ? 110 : 0}
                   wheelMode="natural"
                   value={selectReminderDay}
                   onChange={(nextValue) => {
                     setSelectReminderDay(nextValue);
+                  }}
+                  style={{
+                    maskImage: 'none',
+                    WebkitMaskImage: 'none',
                   }}
                   className="transition-all [&>div:last-child]:rounded-sm [&>div:last-child]:bg-[#B1DFDA] [&>div:last-child>div]:hidden"
                 >
