@@ -32,26 +32,26 @@ function ConfirmModal({
 }: ConfirmModalProps) {
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
-      <AlertDialogContent className="rounded-3xl p-6">
+      <AlertDialogContent className="bg-background-black rounded-2xl border-none p-6">
         <AlertDialogHeader>
-          <AlertDialogTitle className="mb-1 w-full text-start text-xl">
+          <AlertDialogTitle className="mb-1 w-full text-center text-lg font-medium text-white">
             {title}
           </AlertDialogTitle>
-          <AlertDialogDescription className="text-sub-font-black mb-1 w-full text-start">
+          <AlertDialogDescription className="text-sub-font-black mb-1 w-full text-center">
             {description}
           </AlertDialogDescription>
         </AlertDialogHeader>
-        <AlertDialogFooter className="w-full flex-row">
+        <AlertDialogFooter className="flex w-full gap-3">
           <AlertDialogCancel
             onClick={onCancel ?? onOpenChange}
             variant="cancel"
-            className="h-13 flex-1 rounded-xl"
+            className="h-12 flex-1 rounded-xl"
           >
             {cancelText}
           </AlertDialogCancel>
           <AlertDialogAction
             onClick={onConfirm}
-            className="h-13 flex-1 rounded-xl"
+            className="bg-primary-light-active hover:bg-primary-light-hover h-12 flex-1 rounded-xl"
           >
             {confirmText}
           </AlertDialogAction>
