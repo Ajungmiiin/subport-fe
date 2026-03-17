@@ -13,7 +13,7 @@ function MySubscriptionsList() {
     <div className="scrollbar-hide h-full overflow-scroll pb-4">
       {(subscriptions.subscriptions as MemberSubscriptions).length > 0 && (
         <>
-          <p className="mb-4 text-lg font-semibold">{`${subscriptions.subscriptions.length}개 구독 중`}</p>
+          <p className="mb-4 text-lg font-semibold">{`${subscriptions.subscriptions.length}건 구독 중`}</p>
           <SubscribeList
             subscribeList={subscriptions.subscriptions as MemberSubscriptions}
           />

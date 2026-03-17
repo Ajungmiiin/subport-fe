@@ -15,7 +15,7 @@ function GroupedSubscribeList({
         <li key={subscribeType} className="space-y-4">
           <div className="mb-4 flex items-center justify-between">
             <div className="text-lg font-semibold">{subscribeType}</div>
-            <div>{`${item.length}개`}</div>
+            <div>{`${item.length}건`}</div>
           </div>
 
           <ul className="flex flex-col gap-4">
