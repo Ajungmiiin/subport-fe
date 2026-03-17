@@ -32,12 +32,12 @@ function ConfirmModal({
 }: ConfirmModalProps) {
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
-      <AlertDialogContent className="bg-background-black rounded-2xl border-none p-6">
+      <AlertDialogContent className="bg-background-black rounded-2xl border-none pt-8 pb-6">
         <AlertDialogHeader>
           <AlertDialogTitle className="mb-1 w-full text-center text-lg font-medium text-white">
             {title}
           </AlertDialogTitle>
-          <AlertDialogDescription className="text-sub-font-black mb-1 w-full text-center">
+          <AlertDialogDescription className="text-sub-font-black mb-3 w-full text-center">
             {description}
           </AlertDialogDescription>
         </AlertDialogHeader>
