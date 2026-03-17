@@ -42,20 +42,32 @@ function PlanForm({
   durationMonths,
   name,
 }: PlanFormProps) {
+  const defaultValues: PlanFormValues = {
+    name: name ?? '',
+    amount: amount ?? '0',
+    amountUnit: amountUnit ?? 'KRW',
+    durationMonths: durationMonths ?? 1,
+  };
   const [openPicker, setOpenPicker] = useState(false);
   const [selectAmountUnit, setSelectAmountUnit] = useState<AmountUnitState>({
-    amountUnit: amountUnit ?? 'KRW',
+    amountUnit: defaultValues.amountUnit,
   });
 
   const form = useForm<PlanFormValues>({
-    mode: 'all',
-    defaultValues: {
-      name: name ?? '',
-      amount: amount ?? '0',
-      amountUnit: amountUnit ?? 'KRW',
-      durationMonths: durationMonths ?? 1,
-    },
+    mode: 'onChange',
+    defaultValues,
   });
+
+  const watchedName = form.watch('name');
+  const watchedAmount = form.watch('amount');
+  const watchedAmountUnit = form.watch('amountUnit');
+  const watchedDurationMonths = form.watch('durationMonths');
+
+  const isUnchanged =
+    watchedName === defaultValues.name &&
+    watchedAmount === defaultValues.amount &&
+    watchedAmountUnit === defaultValues.amountUnit &&
+    watchedDurationMonths === defaultValues.durationMonths;
 
   return (
     <>
@@ -172,8 +184,13 @@ function PlanForm({
                       value={selectAmountUnit}
                       onChange={(nextValue) => {
                         setSelectAmountUnit(nextValue);
-                        form.setValue('amountUnit', nextValue.amountUnit);
-                        form.setValue('amount', '0', { shouldValidate: true });
+                        form.setValue('amountUnit', nextValue.amountUnit, {
+                          shouldDirty: true,
+                        });
+                        form.setValue('amount', '0', {
+                          shouldValidate: true,
+                          shouldDirty: true,
+                        });
                       }}
                       style={{
                         maskImage: 'none',
@@ -269,7 +286,10 @@ function PlanForm({
         />
       </form>
 
-      <Button form="plan-form" disabled={!form.formState.isValid || disabled}>
+      <Button
+        form="plan-form"
+        disabled={!form.formState.isValid || isUnchanged || disabled}
+      >
         저장하기
       </Button>
     </>
