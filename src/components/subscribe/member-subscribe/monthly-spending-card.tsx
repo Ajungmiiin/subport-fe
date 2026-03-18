@@ -38,7 +38,7 @@ function MonthlySpendingCard({
       <div className="relative z-10 flex h-full w-[65%] flex-col justify-end px-6 py-6">
         <div className="mb-9">
           <p className="text-sm">{format(today, 'M월')} 구독 지출</p>
-          <p className="mt-1 items-end gap-1">
+          <p className="mt-1 items-end gap-1 text-nowrap">
             <span className="text-primary text-xl font-semibold">
               {paidAmountLabel}원
             </span>
@@ -63,7 +63,7 @@ function MonthlySpendingCard({
         alt=""
         aria-hidden
         className={cn(
-          folderImage === EmptyFileImage ? '-bottom-9' : 'bottom-0',
+          folderImage === EmptyFileImage ? '-bottom-9' : '-bottom-3',
           'pointer-events-none absolute right-2 z-10 size-28 select-none',
         )}
       />
