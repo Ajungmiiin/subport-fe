@@ -11,7 +11,7 @@ const checkboxVariants = cva(
     variants: {
       variant: {
         primary:
-          'data-[state=checked]:border-background-black data-[state=checked]:bg-transparent flex size-6 items-center justify-center rounded-full border-2 border-[#444444]',
+          'data-[state=checked]:border-background-black data-[state=checked]:bg-primary-light-active flex size-6 items-center justify-center rounded-full border-2 border-[#444444]',
         secondary:
           'bg-background-black rounded-2xl data-[state=checked]:bg-primary px-7 py-10',
       },
