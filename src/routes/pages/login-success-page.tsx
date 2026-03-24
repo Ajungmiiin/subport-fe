@@ -1,8 +1,10 @@
-import { tokenStorage } from '@/lib/token-storage';
+import { useGetAuthActions } from '@/store/use-auth-store';
 import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 function LoginSuccessPage() {
+  const { setAuth } = useGetAuthActions();
+
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const accessToken = searchParams.get('access');
@@ -13,7 +15,7 @@ function LoginSuccessPage() {
     }
 
     if (accessToken) {
-      tokenStorage.setToken(accessToken);
+      setAuth('member', accessToken);
       navigate('/', { replace: true, state: { showOnboarding: firstLogin } });
 
       if (firstLogin) {
@@ -23,7 +25,7 @@ function LoginSuccessPage() {
         );
       }
     }
-  }, []);
+  }, [accessToken, firstLogin, navigate, setAuth]);
 
   return null;
 }
