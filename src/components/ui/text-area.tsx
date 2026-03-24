@@ -29,7 +29,7 @@ function Textarea({
     >
       <textarea
         className={cn(
-          'bg-box-black placeholder:text-sub-font-black h-full w-full resize-none text-sm outline-none placeholder:text-sm',
+          'bg-box-black placeholder:text-sub-font-black h-full w-full resize-none outline-none',
           className,
           textareaClassName,
         )}
