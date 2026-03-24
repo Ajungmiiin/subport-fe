@@ -3,6 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import ConfirmModal from '../modal/confirm-modal';
 import { useGetAuthActions, useGetAuthRole } from '@/store/use-auth-store';
+import { STORAGE_KEY } from '@/constants/storage-key';
 
 function LogoutButton({ children }: { children: React.ReactNode }) {
   const { clearAuth } = useGetAuthActions();
@@ -38,6 +39,8 @@ function LogoutButton({ children }: { children: React.ReactNode }) {
 
           if (role === 'guest') {
             clearAuth();
+            localStorage.removeItem(STORAGE_KEY.feedbackEntryHiddenUntil);
+            localStorage.removeItem(STORAGE_KEY.feedbackSubmitted);
             location.reload();
           }
         }}
