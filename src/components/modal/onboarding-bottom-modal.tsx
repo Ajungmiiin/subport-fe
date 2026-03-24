@@ -12,14 +12,18 @@ import OnBoardingNotiIcon from '@/assets/icons/onboarding-notification-icon.png'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { cn } from '@/lib/utils';
+import { useGetAuthActions, useGetAuthRole } from '@/store/use-auth-store';
 
 interface OnBoardingBottomModalProps {
   open: boolean;
 }
 
 function OnBoardingBottomModal({ open }: OnBoardingBottomModalProps) {
+  const { clearAuth } = useGetAuthActions();
+  const role = useGetAuthRole();
   const navigate = useNavigate();
 
+  const isGuest = role === 'guest';
   const [onboardingStep, setOnBoardingStep] = useState<
     'exchangeRateNotice' | 'notificationSetting' | null
   >('exchangeRateNotice');
@@ -92,33 +96,50 @@ function OnBoardingBottomModal({ open }: OnBoardingBottomModalProps) {
             </Button>
           )}
           {onboardingStep === 'notificationSetting' && (
-            <div className="flex items-center gap-3">
-              <Button
-                onClick={() => {
-                  navigate('/', { replace: true, state: null });
-                  sessionStorage.setItem(
-                    'first-login-onboarding-consumed',
-                    'consumed',
-                  );
-                }}
-                variant={'cancel'}
-                className="h-12 w-full max-w-2/5 rounded-xl text-sm"
-              >
-                나중에
-              </Button>
-              <Button
-                onClick={() => {
-                  navigate('/my/reminder', { state: null });
-                  sessionStorage.setItem(
-                    'first-login-onboarding-consumed',
-                    'consumed',
-                  );
-                }}
-                className="bg-primary-light-active hover:bg-primary-light-hover h-12 flex-1 rounded-xl text-sm"
-              >
-                알림 받기
-              </Button>
-            </div>
+            <>
+              <div className="flex items-center gap-3">
+                <Button
+                  onClick={() => {
+                    if (!isGuest) {
+                      navigate('/', { replace: true, state: null });
+                      sessionStorage.setItem(
+                        'first-login-onboarding-consumed',
+                        'consumed',
+                      );
+                    } else {
+                      navigate('/', {
+                        replace: true,
+                        state: { skipFeedbackEntry: true },
+                      });
+                      sessionStorage.setItem(
+                        'first-login-onboarding-consumed',
+                        'consumed',
+                      );
+                    }
+                  }}
+                  variant={'cancel'}
+                  className="h-12 w-full max-w-2/5 rounded-xl text-sm"
+                >
+                  나중에
+                </Button>
+                <Button
+                  onClick={() => {
+                    if (!isGuest) {
+                      navigate('/my/reminder', { state: null });
+                      sessionStorage.setItem(
+                        'first-login-onboarding-consumed',
+                        'consumed',
+                      );
+                    } else {
+                      clearAuth();
+                    }
+                  }}
+                  className="bg-primary-light-active hover:bg-primary-light-hover h-12 flex-1 rounded-xl text-sm"
+                >
+                  {isGuest ? '로그인 후 알림받기' : '알림 받기'}
+                </Button>
+              </div>
+            </>
           )}
         </DrawerFooter>
       </DrawerContent>
