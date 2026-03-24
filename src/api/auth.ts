@@ -21,3 +21,11 @@ export const logout = async () => {
 
   return response.data;
 };
+
+export const guestLogin = async () => {
+  const response = await authClient.post<{ accessToken: string }>(
+    '/api/auth/guest',
+  );
+
+  return response.data;
+};
