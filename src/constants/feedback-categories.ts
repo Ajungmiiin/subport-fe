@@ -1,4 +1,4 @@
-export const PEEDBACK_CATEGORIES = [
+export const FEEDBACK_CATEGORIES = [
   {
     id: 'feature' as const,
     label: '기능 개선',
