@@ -1,5 +1,5 @@
 import useGetMyProfile from '@/hooks/queries/use-get-my-profile';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import SubscribeCalendarIcon from '@/assets/subscribe-calendar.png';
 import SubscribeManageIcon from '@/assets/subscribe-manage.png';
@@ -15,9 +15,13 @@ import { Button } from '@/components/ui/button';
 import LogoutButton from '@/components/my/logout-button';
 import DeleteProfileButton from '@/components/my/delete-profile-button';
 import { useGetAuthRole } from '@/store/use-auth-store';
+import { useState } from 'react';
+import LoginModal from '@/components/modal/login-modal';
 function MyPage() {
-  const role = useGetAuthRole();
+  const [loginModal, setLoginModal] = useState(false);
 
+  const role = useGetAuthRole();
+  const navigate = useNavigate();
   const {
     data: profile,
     isPending: isGetProfilePending,
@@ -49,7 +53,7 @@ function MyPage() {
         {isMember && (
           <>
             <br />
-            '구독을 관리한지'
+            구독을 관리한지
             <br />
             <span className="text-primary">{`D+${profile.joinedDays}`}</span>
           </>
@@ -87,21 +91,27 @@ function MyPage() {
         </p>
         <ul className="bg-box-black space-y-6 rounded-2xl p-4">
           <li>
-            <Link
-              to="/my/edit-account"
-              className="flex items-center justify-between"
+            <button
+              onClick={() => {
+                if (isMember) {
+                  navigate('/my/edit-account');
+                } else {
+                  setLoginModal(true);
+                }
+              }}
+              className="flex w-full cursor-pointer items-center justify-between"
             >
               <div className="flex items-center gap-2.5">
                 <img className="size-8" src={EditProfileIcon} alt="정보 수정" />
                 <div className="flex flex-col justify-between text-sm">
-                  <span className="font-semibold">정보 수정</span>
+                  <span className="text-start font-semibold">정보 수정</span>
                   <span className="text-sub-font-black text-xs">
                     계정 정보를 수정할 수 있어요
                   </span>
                 </div>
               </div>
               <ChevronRight />
-            </Link>
+            </button>
           </li>
           <li>
             <LogoutButton>
@@ -118,7 +128,7 @@ function MyPage() {
             </LogoutButton>
           </li>
           <li>
-            <DeleteProfileButton />
+            <DeleteProfileButton onRequireLogin={() => setLoginModal(true)} />
           </li>
         </ul>
       </div>
@@ -129,9 +139,15 @@ function MyPage() {
         </p>
         <ul className="bg-box-black space-y-6 rounded-2xl p-4">
           <li>
-            <Link
-              to="/my/reminder"
-              className="flex items-center justify-between"
+            <button
+              onClick={() => {
+                if (isMember) {
+                  navigate('/my/reminder');
+                } else {
+                  setLoginModal(true);
+                }
+              }}
+              className="flex w-full cursor-pointer items-center justify-between"
             >
               <div className="flex items-center gap-2.5">
                 <img
@@ -140,14 +156,14 @@ function MyPage() {
                   alt="알림 설정"
                 />
                 <div className="flex flex-col justify-between text-sm">
-                  <span className="font-semibold">알림 설정</span>
+                  <span className="text-start font-semibold">알림 설정</span>
                   <span className="text-sub-font-black text-xs">
                     결제 일정이 가까워지면 이메일로 알려드려요
                   </span>
                 </div>
               </div>
               <ChevronRight />
-            </Link>
+            </button>
           </li>
           <li>
             <Link to="/faq" className="flex items-center justify-between">
@@ -186,6 +202,8 @@ function MyPage() {
           </li>
         </ul>
       </div>
+
+      <LoginModal open={loginModal} onOpenChange={() => setLoginModal(false)} />
     </section>
   );
 }
