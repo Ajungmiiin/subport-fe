@@ -63,12 +63,12 @@ function FeedbackModalPage() {
                 htmlFor="featureRequest"
                 className="mb-2 block font-semibold"
               >
-                사용하면서 느낀 점을 자유롭게 들려주세요
+                어떤 기능이 추가되면 좋아질까요?
               </label>
               <Textarea
                 containerClassName="h-40"
                 id="featureRequest"
-                placeholder="좋았던 점이나 아쉬웠던 점을 편하게 적어주세요"
+                placeholder="추가되었으면 하는 기능을 알려주세요"
                 value={featureRequest}
                 onChange={(e) => setFeatureRequest(e.target.value)}
               />
