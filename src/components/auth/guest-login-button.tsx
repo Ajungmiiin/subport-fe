@@ -16,7 +16,7 @@ function GuestLoginButton() {
         guestLogin();
       }}
       type="button"
-      className="text-background-black w-full cursor-pointer rounded-xl bg-white py-4 text-center text-lg font-semibold"
+      className="text-background-black z-20 w-full cursor-pointer rounded-xl bg-white py-4 text-center text-lg font-semibold"
     >
       바로 시작하기
     </button>
