@@ -3,7 +3,7 @@ import { createBrowserRouter, Link, RouterProvider } from 'react-router-dom';
 import RootLayout from '@/components/layout/root-layout';
 import { RequireAuth, RequireGuest } from '@/components/layout/private-route';
 
-import MainPage from './pages/main-page';
+import MainPage from '../modules/subscription/pages/main-page';
 import LoginPage from './pages/login-page';
 import LoginSuccessPage from './pages/login-success-page';
 import AddSubscribePage from './pages/add-subscribe-page';
@@ -44,11 +44,11 @@ const router = createBrowserRouter([
             path: '/login',
             element: <LoginPage />,
           },
-          {
-            path: '/login-success',
-            element: <LoginSuccessPage />,
-          },
         ],
+      },
+      {
+        path: '/login-success',
+        element: <LoginSuccessPage />,
       },
       {
         element: <RequireAuth />,
