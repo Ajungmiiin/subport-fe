@@ -136,9 +136,13 @@ function MainPage() {
     !isOnBoardingConsumed;
 
   const shouldSkipFeedbackEntry = location.state?.skipFeedbackEntry === true;
+  const isMainPage = location.pathname === '/';
 
   const shouldRenderFeedbackEntry =
-    !shouldShowOnboarding && !shouldSkipFeedbackEntry && isFeedbackEntryOpen;
+    isMainPage &&
+    !shouldShowOnboarding &&
+    !shouldSkipFeedbackEntry &&
+    isFeedbackEntryOpen;
   return (
     <>
       <div className="scrollbar-hide flex h-full flex-col gap-6 overflow-scroll pb-6">
