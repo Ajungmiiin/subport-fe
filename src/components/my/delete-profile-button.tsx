@@ -13,8 +13,14 @@ import {
 } from '../ui/dialog';
 import { Button } from '../ui/button';
 import { Checkbox } from '../ui/checkbox';
+import { useGetAuthRole } from '@/store/use-auth-store';
 
-function DeleteProfileButton() {
+interface DeleteProfileButtonProps {
+  onRequireLogin: () => void;
+}
+
+function DeleteProfileButton({ onRequireLogin }: DeleteProfileButtonProps) {
+  const role = useGetAuthRole();
   const navigate = useNavigate();
   const { mutate: deleteProfile } = useDeleteProfileMutate({
     onSuccess: () => {
@@ -27,7 +33,13 @@ function DeleteProfileButton() {
   return (
     <>
       <button
-        onClick={() => setModal(true)}
+        onClick={() => {
+          if (role === 'member') {
+            setModal(true);
+          } else {
+            onRequireLogin();
+          }
+        }}
         className="flex w-full cursor-pointer items-center justify-between"
       >
         <div className="flex items-center gap-2.5">
