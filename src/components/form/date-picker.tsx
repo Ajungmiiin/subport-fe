@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import { ChevronUp } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import PickerScrollGuard from '@/components/ui/picker-scroll-guard';
 import Picker from 'react-mobile-picker';
 import { format } from 'date-fns';
 import {
@@ -100,7 +101,8 @@ function DatePicker({
             'w-full',
           )}
         >
-          <Picker
+          <PickerScrollGuard enabled={selectDate}>
+            <Picker
             height={selectDate ? 110 : 0}
             style={{
               maskImage: 'none',
@@ -179,7 +181,8 @@ function DatePicker({
                 </Picker.Item>
               ))}
             </Picker.Column>
-          </Picker>
+            </Picker>
+          </PickerScrollGuard>
         </div>
       </div>
     </>
