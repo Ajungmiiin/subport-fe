@@ -4,6 +4,7 @@ import { Switch } from '../ui/switch';
 import Picker from 'react-mobile-picker';
 import { ChevronUp } from 'lucide-react';
 import FieldWrapper from '../ui/field-wrapper';
+import PickerScrollGuard from '../ui/picker-scroll-guard';
 import { cn } from '@/lib/utils';
 import useGetReminderSettings from '@/hooks/queries/use-get-reminder-settings';
 import useUpdatedReminderSettings from '@/hooks/mutations/use-updated-reminder-settings-mutate';
@@ -111,7 +112,8 @@ function EditPayMentDateNotificationForm() {
                   'w-full',
                 )}
               >
-                <Picker
+                <PickerScrollGuard enabled={openPicker}>
+                  <Picker
                   height={openPicker ? 110 : 0}
                   wheelMode="natural"
                   value={selectReminderDay}
@@ -142,7 +144,8 @@ function EditPayMentDateNotificationForm() {
                       </Picker.Item>
                     ))}
                   </Picker.Column>
-                </Picker>
+                  </Picker>
+                </PickerScrollGuard>
               </div>
             </div>
           </FieldWrapper>

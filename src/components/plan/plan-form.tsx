@@ -4,6 +4,7 @@ import ErrorMessage from '../ui/error-message';
 import { cn, deleteComma, formatKRWInput, formatUSDInput } from '@/lib/utils';
 import { useState } from 'react';
 import Picker from 'react-mobile-picker';
+import PickerScrollGuard from '../ui/picker-scroll-guard';
 import { Button } from '../ui/button';
 import { ChevronUp } from 'lucide-react';
 
@@ -178,7 +179,8 @@ function PlanForm({
                       'w-full',
                     )}
                   >
-                    <Picker
+                    <PickerScrollGuard enabled={openPicker}>
+                      <Picker
                       height={openPicker ? 110 : 0}
                       wheelMode="natural"
                       value={selectAmountUnit}
@@ -216,7 +218,8 @@ function PlanForm({
                           </Picker.Item>
                         ))}
                       </Picker.Column>
-                    </Picker>
+                      </Picker>
+                    </PickerScrollGuard>
                   </div>
                 </div>
               </FieldWrapper>

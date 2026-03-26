@@ -3,6 +3,7 @@ import { Controller, useForm } from 'react-hook-form';
 
 import { ChevronUp, Plus } from 'lucide-react';
 import Picker from 'react-mobile-picker';
+import PickerScrollGuard from '../ui/picker-scroll-guard';
 
 import { cn } from '@/lib/utils';
 
@@ -127,7 +128,8 @@ function AddCustomSubscribeForm({
                     'w-full',
                   )}
                 >
-                  <Picker
+                  <PickerScrollGuard enabled={openPicker}>
+                    <Picker
                     style={{
                       maskImage: 'none',
                       WebkitMaskImage: 'none',
@@ -159,7 +161,8 @@ function AddCustomSubscribeForm({
                         </Picker.Item>
                       ))}
                     </Picker.Column>
-                  </Picker>
+                    </Picker>
+                  </PickerScrollGuard>
                 </div>
               </div>
             </FieldWrapper>
