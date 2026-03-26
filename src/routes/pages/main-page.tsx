@@ -69,12 +69,27 @@ function MainPage() {
   const isOnBoardingConsumed =
     sessionStorage.getItem(STORAGE_KEY.firstLoginOnboardingConsumed) ===
     'consumed';
+  const isFeedbackEntrySuppressed =
+    sessionStorage.getItem(STORAGE_KEY.feedbackEntrySuppressed) === 'true';
   const role = useGetAuthRole();
   const isGuest = role === 'guest';
   const navigate = useNavigate();
   const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
+  const shouldShowOnboarding =
+    (location.state?.showOnboarding === true || isGuest) &&
+    !isOnBoardingConsumed;
+  const shouldSkipFeedbackEntry = location.state?.skipFeedbackEntry === true;
+  const isMainPage = location.pathname === '/';
   const [isFeedbackEntryOpen, setIsFeedbackEntryOpen] = useState(() => {
+    if (
+      shouldShowOnboarding ||
+      shouldSkipFeedbackEntry ||
+      isFeedbackEntrySuppressed
+    ) {
+      return false;
+    }
+
     const hiddenDate = localStorage.getItem(
       STORAGE_KEY.feedbackEntryHiddenUntil,
     );
@@ -100,6 +115,12 @@ function MainPage() {
       paymentProgressPercent: subscriptions.paymentProgressPercent,
     });
   }, [active, subscriptions]);
+
+  useEffect(() => {
+    return () => {
+      sessionStorage.removeItem(STORAGE_KEY.feedbackEntrySuppressed);
+    };
+  }, []);
 
   const toggleActive = () => {
     setSearchParams((prev) => {
@@ -131,17 +152,11 @@ function MainPage() {
     });
   };
 
-  const shouldShowOnboarding =
-    (location.state?.showOnboarding === true || isGuest) &&
-    !isOnBoardingConsumed;
-
-  const shouldSkipFeedbackEntry = location.state?.skipFeedbackEntry === true;
-  const isMainPage = location.pathname === '/';
-
   const shouldRenderFeedbackEntry =
     isMainPage &&
     !shouldShowOnboarding &&
     !shouldSkipFeedbackEntry &&
+    !isFeedbackEntrySuppressed &&
     isFeedbackEntryOpen;
   return (
     <>
