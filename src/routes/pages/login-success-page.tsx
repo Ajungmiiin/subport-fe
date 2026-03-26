@@ -9,7 +9,7 @@ function LoginSuccessPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const accessToken = searchParams.get('access');
-  const firstLogin = searchParams.get('firstLogin');
+  const isFirstLogin = searchParams.get('firstLogin') === 'true';
 
   const redirectTo = sessionStorage.getItem('login-redirect');
   const role = useGetAuthRole();
@@ -24,29 +24,33 @@ function LoginSuccessPage() {
       if (role === 'guest') {
         localStorage.removeItem(STORAGE_KEY.feedbackEntryHiddenUntil);
         localStorage.removeItem(STORAGE_KEY.feedbackSubmitted);
-        localStorage.removeItem(STORAGE_KEY.firstLoginOnboardingConsumed);
+        sessionStorage.removeItem(STORAGE_KEY.firstLoginOnboardingConsumed);
         clearAuth();
       }
 
+      sessionStorage.setItem(STORAGE_KEY.feedbackEntrySuppressed, 'true');
       setAuth('member', accessToken);
       if (redirectTo) {
         console.log(redirectTo);
         navigate(redirectTo, {
           replace: true,
-          state: { showOnboarding: firstLogin },
+          state: { showOnboarding: isFirstLogin },
         });
       } else {
-        navigate('/', { replace: true, state: { showOnboarding: firstLogin } });
+        navigate('/', {
+          replace: true,
+          state: { showOnboarding: isFirstLogin },
+        });
       }
 
-      if (firstLogin) {
+      if (isFirstLogin) {
         sessionStorage.setItem(
-          'first-login-onboarding-consumed',
+          STORAGE_KEY.firstLoginOnboardingConsumed,
           'un-consumed',
         );
       }
     }
-  }, [accessToken, clearAuth, firstLogin, navigate, redirectTo, setAuth]);
+  }, [accessToken, clearAuth, isFirstLogin, navigate, redirectTo, role, setAuth]);
 
   return null;
 }
