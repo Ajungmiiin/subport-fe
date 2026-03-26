@@ -50,22 +50,24 @@ function RootErrorPage() {
         )}
       </span>
 
-      <Button
-        disabled={state === 'loading'}
-        onClick={handleClickRevalidate}
-        className="rounded-full px-8 py-3 font-medium"
-      >
-        {isNotFound ? '홈으로 돌아가기' : '다시 시도'}
-      </Button>
-
-      {!isNotFound && (
+      <div className="flex items-center gap-4">
         <Button
-          onClick={() => navigate(-1)}
-          className="rounded-full px-8 py-3 font-medium"
+          disabled={state === 'loading'}
+          onClick={handleClickRevalidate}
+          className="rounded-full px-8 py-3 font-semibold"
         >
-          뒤로 가기
+          {isNotFound ? '홈으로 돌아가기' : '다시 시도'}
         </Button>
-      )}
+
+        {!isNotFound && (
+          <Button
+            onClick={() => navigate(-1)}
+            className="text-background-black rounded-full bg-white px-8 py-3 font-semibold hover:bg-white"
+          >
+            뒤로 가기
+          </Button>
+        )}
+      </div>
     </div>
   );
 }
