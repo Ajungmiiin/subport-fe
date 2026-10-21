@@ -1,5 +1,8 @@
 import { Navigate, Outlet } from 'react-router-dom';
-import { useGetAccessToken, useGetAuthRole } from '@/store/use-auth-store';
+import {
+  useGetAccessToken,
+  useGetAuthRole,
+} from '@/domains/auth/store/use-auth-store';
 
 export function RequireAuth() {
   const accessToken = useGetAccessToken();

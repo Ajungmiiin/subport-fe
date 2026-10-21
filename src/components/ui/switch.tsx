@@ -1,5 +1,5 @@
 import * as SwitchPrimitive from '@radix-ui/react-switch';
-import { cn } from '@/lib/utils';
+import { cn } from '@/shared/lib/utils';
 
 type SwitchVariant = 'label-pill' | 'dot';
 

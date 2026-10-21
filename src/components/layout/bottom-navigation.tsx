@@ -2,7 +2,7 @@ import HomeIcon from '@/assets/icons/home-icon.svg?react';
 import AddIcon from '@/assets/icons/add-subscribe-icon.svg?react';
 import MyPageIcon from '@/assets/icons/my-page-icon.svg?react';
 import { Link, useLocation } from 'react-router-dom';
-import { cn } from '@/lib/utils';
+import { cn } from '@/shared/lib/utils';
 
 function BottomNavigation() {
   const { pathname } = useLocation();
@@ -22,7 +22,7 @@ function BottomNavigation() {
           <span>홈</span>
         </Link>
         <Link
-          to="/subscribe/add"
+          to="/service/add"
           className="flex w-13 flex-col items-center justify-center gap-1 text-xs"
         >
           <AddIcon className="fill-icon-default size-6" />

@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as RadioGroupPrimitive from '@radix-ui/react-radio-group';
 import CheckIcon from '@/assets/icons/check-icon.svg?react';
 
-import { cn } from '@/lib/utils';
+import { cn } from '@/shared/lib/utils';
 
 type RadioGroupItemProps = React.ComponentProps<
   typeof RadioGroupPrimitive.Item
