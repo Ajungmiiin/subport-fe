@@ -21,17 +21,13 @@
 - 마이페이지, 계정 수정, 리마인더 설정
 - FAQ 및 사용자 피드백 제출
 
-| 온보딩 | 구독 등록 | 홈 정렬 |
+| 온보딩 | 구독 등록 | 커스텀 멤버십 |
 |:-:|:-:|:-:|
-| <img width="240" src="https://github.com/user-attachments/assets/bea1e171-d2f3-4757-81c4-b1d68562800c" /> | <img width="240" src="https://github.com/user-attachments/assets/f4ab51d2-0d35-4e3e-8ed6-97296e866558" /> | <img width="240" src="https://github.com/user-attachments/assets/ea443a53-72d8-4b53-a9b2-c23e2064c76f" /> |
+| <img width="240" src="https://github.com/user-attachments/assets/bea1e171-d2f3-4757-81c4-b1d68562800c" /> | <img width="240" src="https://github.com/user-attachments/assets/f4ab51d2-0d35-4e3e-8ed6-97296e866558" /> | <img width="240" src="https://github.com/user-attachments/assets/862239b5-c441-4de8-988e-b9a0a3c6cbe7" /> |
 
 | 구독 일정 캘린더 | 비활성화 · 재활성화 | 더치페이 |
 |:-:|:-:|:-:|
 | <img width="240" src="https://github.com/user-attachments/assets/88c63e3d-6b38-46db-a718-98b9bcae7da2" /> | <img width="240" src="https://github.com/user-attachments/assets/11cb75bd-a385-4948-88e2-da0672331406" /> | <img width="240" src="https://github.com/user-attachments/assets/0eee4b4d-2836-46f3-be0d-048e2fc6c822" /> |
-
-| 커스텀 멤버십 |
-|:-:|
-| <img width="240" src="https://github.com/user-attachments/assets/862239b5-c441-4de8-988e-b9a0a3c6cbe7" /> |
 
 ## :books: 기술 스택
 
