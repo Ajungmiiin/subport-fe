@@ -21,42 +21,26 @@
 - 마이페이지, 계정 수정, 리마인더 설정
 - FAQ 및 사용자 피드백 제출
 
+| 온보딩 | 구독 등록 | 홈 정렬 |
+|:-:|:-:|:-:|
+| <img width="240" src="https://github.com/user-attachments/assets/bea1e171-d2f3-4757-81c4-b1d68562800c" /> | <img width="240" src="https://github.com/user-attachments/assets/f4ab51d2-0d35-4e3e-8ed6-97296e866558" /> | <img width="240" src="https://github.com/user-attachments/assets/ea443a53-72d8-4b53-a9b2-c23e2064c76f" /> |
+
+| 구독 일정 캘린더 | 비활성화 · 재활성화 | 더치페이 |
+|:-:|:-:|:-:|
+| <img width="240" src="https://github.com/user-attachments/assets/88c63e3d-6b38-46db-a718-98b9bcae7da2" /> | <img width="240" src="https://github.com/user-attachments/assets/11cb75bd-a385-4948-88e2-da0672331406" /> | <img width="240" src="https://github.com/user-attachments/assets/0eee4b4d-2836-46f3-be0d-048e2fc6c822" /> |
+
+| 커스텀 멤버십 |
+|:-:|
+| <img width="240" src="https://github.com/user-attachments/assets/862239b5-c441-4de8-988e-b9a0a3c6cbe7" /> |
+
 ## :books: 기술 스택
 
-### Core
-
-- React 19
-    - 섭포트는 로그인 후 이용 할 수 있는 서비스이기 때문에 <br/>
-     **초기 SEO 대응 보다 로그인 이후 사용자 경험 개선 및 복합적인 상태 변화 등 사용자 인터랙션이 더 중요한 서비스** 라고 생각하여 SPA 구조를 선택했습니다
-- TypeScript
-    - 구독, 플랜, 일정, 사용자 정보 등 다루는 **데이터 구조를 일관되게 관리**하고 **API 응답과 폼 값의 타입 안정성**을 위해 타입스크립트를 도입했습니다
-- Vite
-- React Router
-
-### State / Data
-
-- TanStack Query
-  - **UI 상태와 서버 상태를 분리**하고, 로딩 & 캐싱 및 mutation 이후 **데이터 갱신을 일관된 패턴**으로 처리 할 수 있어 **API 연동의 복잡성**을 줄이는 데에 적합하다고 생각했습니다
-- Zustand
-  - **보일러 플레이트 코드가 적고** 러닝커브가 낮아 프로젝트 규모 대비 빠르게 도입하여 **단순한 상태 구조를 유지**하기에 적합하다고 생각하여 Zustand를 활용했습니다
-- Axios
-
-### Form / Validation
-
-- React Hook Form
-  - 구독 등록, 플랜 관리, 리마인더 설정 등 **입력 필드와 조건부 필드가 많은 화면을 효율적으로 관리**하기 위하여 선택했으며, 입력 & 에러 상태 등을 비교적 **단순한 구조**로 관리 할 수 있었습니다
-- Zod
-  - **폼 마다 다른 입력 규칙을 UI 로직과 분리**하고, 검증 규칙을 명확한 **스키마 형태**로 관리하기 위해 선택했습니다 RHF과 함께 사용했을 때 **조건부 입력 검증 및 타입 추론**까지 이어져 폼의 복잡도를 낮추는 데 도움이 됐습니다
-- `@hookform/resolvers`
-
-### UI
-
-- Tailwind CSS v4
-- Shadcn/UI
-- Lucide React
-- react-mobile-picker
-- react-day-picker
-
+| 구분 | 사용 기술 |
+|---|---|
+| Core | React 19 · TypeScript · Vite · React Router |
+| State / Data | TanStack Query · Zustand · Axios |
+| Form | React Hook Form · Zod |
+| UI | Tailwind CSS v4 · shadcn/ui · Lucide · react-day-picker · react-mobile-picker |
 ## :bulb: 아키텍처 포인트
 
 ### 1. 도메인 중심 구조
@@ -94,39 +78,6 @@ src
 - 라우트 필터/캘린더 상태: URL Search Params
 
 이렇게 역할을 분리해 상태 복잡도를 낮추고, mutation 이후 캐시 갱신 범위를 명확하게 관리했습니다.
-
-## 실행 방법
-
-### 1. 환경 변수 설정
-
-프로젝트 루트에 `.env` 파일을 만들고 아래 값을 설정합니다.
-
-```env
-VITE_API_URL=YOUR_API_SERVER_URL
-```
-
-### 2. 패키지 설치
-
-```bash
-npm install
-```
-
-### 3. 개발 서버 실행
-
-```bash
-npm run dev
-```
-
-## 스크립트
-
-```bash
-npm run dev
-npm run build
-npm run build:analyze
-```
-
-- `build:analyze`: Rollup Visualizer를 통해 번들 시각화 리포트를 생성합니다.
-- 분석 결과 파일은 `dist/stats.html`에 생성됩니다.
 
 ## :exclamation: 구현하면서 집중한 부분
 
@@ -188,3 +139,4 @@ npm run build:analyze
     </td>
   </tr>
 </table>
+
